@@ -2,6 +2,10 @@ This is my new message.
 Hi, Sam G here...
 Sam Haymond was here
 Caleb's change
+<<<<<<< HEAD
+Caleb's 2nd change
+=======
+>>>>>>> 9fac1e547f88de6f0e70b59cc6a20d63ea2e7a16
 
 Sam H. is making a new change here on this line
 
