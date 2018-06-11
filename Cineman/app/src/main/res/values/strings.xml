@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Cineman</string>
+    <string name="searchBar"></string>
+    <string name="searchButton">Search</string>
 </resources>
