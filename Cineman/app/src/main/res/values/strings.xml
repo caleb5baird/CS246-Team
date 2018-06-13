@@ -2,4 +2,5 @@
     <string name="app_name">Cineman</string>
     <string name="searchBar"></string>
     <string name="searchButton">Search</string>
+    <string name="title_activity_search_results">SearchResults</string>
 </resources>
