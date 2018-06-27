@@ -38,13 +38,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchResults.class);
         EditText editText = (EditText) findViewById(R.id.searchBar);
         String message = editText.getText().toString();
+        searchHistory.add(message);
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
-
-        /*etSearchBar =(EditText) findViewById(R.id.searchBar);
-        searchHistory.add(etSearchBar.getText().toString());*/
     }
-    
+
 
     private void writeSharedPreferneces(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
