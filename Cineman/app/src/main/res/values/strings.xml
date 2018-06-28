@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Cineman</string>
     <string name="searchBar">Search by title</string>
-    <string name="searchButton">Send</string>
+    <string name="searchButton">Search</string>
     <string name="title_activity_search_results">SearchResults</string>
+
+    <string-array name="Ratings">
+        <item>Rating</item>
+        <item>G</item>
+        <item>PG</item>
+        <item>PG-13</item>
+        <item>R</item>
+        <item>Unrated</item>
+    </string-array>
+
 </resources>
