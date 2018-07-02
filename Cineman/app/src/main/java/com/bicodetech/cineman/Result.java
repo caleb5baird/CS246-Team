@@ -3,12 +3,11 @@ package com.bicodetech.cineman;
 import java.util.ArrayList;
 
 public class Result {
-    public Result(String title, String provider, String summary, String rating, String title1, String runtime, String genre, String date, String director, ArrayList<String> cast, float price, float popularRating) {
+    public Result(String title, String provider, String summary, String rating, String runtime, String genre, String date, String director, ArrayList<String> cast, float price, float popularRating) {
         this.title = title;
         this.provider = provider;
         this.summary = summary;
         this.rating = rating;
-        this.title = title1;
         this.runtime = runtime;
         this.genre = genre;
         this.date = date;
