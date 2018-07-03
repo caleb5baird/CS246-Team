@@ -19,10 +19,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class JSONPostLoader extends AsyncTask<Void, Void, String> {
 
-    private WeakReference<JSONPostActivity> activityRef;
+    private WeakReference<SearchResults> activityRef;
 
-    public JSONPostLoader(JSONPostActivity activity) {
-        activityRef = new WeakReference<JSONPostActivity>(activity);
+    public JSONPostLoader(SearchResults activity) {
+        activityRef = new WeakReference<SearchResults>(activity);
     }
 
     @Override

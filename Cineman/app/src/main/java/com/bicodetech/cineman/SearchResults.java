@@ -6,7 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,10 +16,27 @@ import java.util.List;
 
 public class SearchResults extends AppCompatActivity {
 
+    private ProgressBar progressBar;
+    private TextView textview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+        setTitle("JSON Post");
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textview = findViewById(R.id.searchBar);
+        textview.setMovementMethod(new ScrollingMovementMethod());
+        disableProgressBar();
+        new JSONPostLoader(this).execute();
+
+        // Get the Intent that started this activity and extract the string
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        // Capture the layout's TextView and set the string as its text
+        TextView textView = findViewById(R.id.textView);
+        textView.setText(message);
 
 //        ArrayList cast = new ArrayList<String>();
 //        cast.add("Caleb Baird");
@@ -39,14 +58,18 @@ public class SearchResults extends AppCompatActivity {
 //        results.add(r6);
 //        List<CombinedResults> combinedResults = combineResults(results);
 
+    }
 
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+    public void displayDump(String jsonData) {
+        textview.setText(jsonData);
+    }
 
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+    public void enableProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void disableProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private ArrayList<CombinedResults> combineResults(ArrayList<Result> results) {
