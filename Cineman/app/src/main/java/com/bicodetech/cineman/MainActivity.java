@@ -6,7 +6,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.Set;
@@ -44,6 +46,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         etSearchBar = findViewById(R.id.searchBar);
         readSharedPreferences();
+
+        //This is the code that handles showing out advanced search options.
+        Switch ourSwitch = (Switch) findViewById(R.id.AdvancedSearch);
+        ourSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //This checks our switch to see if its toggled. If it is then we hide our constraint.
+                if (isChecked) {
+                    // The switch is enabled
+                    findViewById(R.id.constraintLayout).setVisibility(View.VISIBLE); //this is to change our advanced search from visable to gone
+                } else {
+                    // The switch is disabled
+                    findViewById(R.id.constraintLayout).setVisibility(View.GONE); //this is to change our advanced search from gone to visable
+                }
+            }
+        });
     }
 
 

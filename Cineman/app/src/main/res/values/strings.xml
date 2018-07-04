@@ -4,6 +4,7 @@
     <string name="searchButton">Search</string>
     <string name="progressBar">Loading</string>
     <string name="title_activity_search_results">SearchResults</string>
+    <string name="showAdvancedSearch">Advanced Search</string>
 
     <string-array name="Ratings">
         <item>Rating</item>

@@ -10,13 +10,25 @@
         android:id="@+id/searchButton"
         android:layout_width="88dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="8dp"
         android:onClick="sendMessage"
         android:text="@string/searchButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="85dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+    <Switch
+        android:id="@+id/AdvancedSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/showAdvancedSearch"
+        app:layout_constraintStart_toEndOf="@+id/searchButton"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <EditText
         android:id="@+id/searchBar"
