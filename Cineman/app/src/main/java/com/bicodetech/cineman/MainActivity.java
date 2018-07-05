@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -70,11 +71,42 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Send button */
     public void sendMessage(View view) {
         // Do something in response to button
+
+        EditText searchBarEntry = (EditText) findViewById(R.id.searchBar);
+
+        CheckBox checkNetflix = (CheckBox) findViewById(R.id.checkBox3); //Netflix
+        CheckBox checkAmazon = (CheckBox) findViewById(R.id.checkBox4); //Amazon
+
+        CheckBox checkAction = (CheckBox) findViewById(R.id.checkBox10); //action
+        CheckBox checkRomance = (CheckBox) findViewById(R.id.checkBox12); //Romance
+        CheckBox checkComedy = (CheckBox) findViewById(R.id.checkBox11); //Comedy
+        CheckBox checkMusical = (CheckBox) findViewById(R.id.checkBox8);  //Musical
+        CheckBox checkDocumentary = (CheckBox) findViewById(R.id.checkBox7);  //Documentuary
+        CheckBox checkReligious = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
+
+        CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
+        CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
+
+
+
+        Bundle b = new Bundle();
+
+        b.putString("title", searchBarEntry.toString());
+        b.putBoolean("checkNetflix", checkNetflix.isChecked());
+        b.putBoolean("checkAmazon", checkAmazon.isChecked());
+        b.putBoolean("checkAction", checkAction.isChecked());
+        b.putBoolean("checkRomance", checkRomance.isChecked());
+        b.putBoolean("checkComedy", checkComedy.isChecked());
+        b.putBoolean("checkMusical", checkMusical.isChecked());
+        b.putBoolean("checkDocumentary", checkDocumentary.isChecked());
+        b.putBoolean("checkReligious", checkReligious.isChecked());
+        b.putBoolean("checkRent", checkRent.isChecked());
+        b.putBoolean("checkStream", checkStream.isChecked());
+
+
         Intent intent = new Intent(this, SearchResults.class);
-        /*EditText editText = (EditText) findViewById(R.id.searchBar);
-        String message = editText.getText().toString();
-        searchHistory.add(message);*/
-        //intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_MESSAGE, b);
+
         startActivity(intent);
     }
 
