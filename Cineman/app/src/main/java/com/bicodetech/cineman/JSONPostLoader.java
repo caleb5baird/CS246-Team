@@ -46,22 +46,25 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
 
             HashMap<String, List<String>> params = new HashMap<String,List<String>>();
 
-            //add rateing
             List<String> v0 = new ArrayList<String>();
-            v0.add("G");
-            params.put("age_certifications",v0);
+            v0.add("the Wizard of Oz");
+            params.put("query",null);
 
             //add content type (movie vs tv)
             List<String> v1 = new ArrayList<String>();
             v1.add("movie");
             params.put("content_types",v1);
 
-            params.put("presentation_types",null);
 
             // add provider
             List<String> v3 = new ArrayList<String>();
             v3.add("amp");
             params.put("providers",v3);
+
+            //add rateing
+            List<String> v4 = new ArrayList<String>();
+            v4.add("G");
+            params.put("age_certifications",v4);
 
             //add genres
             params.put("genres",null);
@@ -69,30 +72,25 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
             // add languages
             params.put("languages",null);
 
+            // add date range
             params.put("release_year_from",null);
-
             params.put("release_year_until",null);
 
+            // stream/rent
             List<String> v2 = new ArrayList<String>();
             v2.add("flatrate");
             params.put("monetization_types",v2);
 
+            // price range
             params.put("min_price",null);
-
             params.put("max_price",null);
 
+            params.put("presentation_types",null);
             params.put("nationwide_cinema_releases_only",null);
-
             params.put("scoring_filter_types",null);
-
             params.put("cinema_release",null);
-
-            params.put("query",null);
-
             params.put("page",null);
-
             params.put("page_size",null);
-
             params.put("timeline_type",null);
 
             Gson gson = new Gson();
