@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText etSearchBar;
     private static String SP_SEARCH_BAR = "com.bicodetech.searchBar";
+    private static final String[] COUNTRIES = new String[] {
+            "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "France"
+    };
 
     /*@Override
     protected void onPause() {
@@ -62,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        AutoCompleteTextView textView = (AutoCompleteTextView)
+                findViewById(R.id.searchBar);
+        textView.setAdapter(adapter);
     }
 
 

@@ -30,24 +30,12 @@
         app:layout_constraintStart_toEndOf="@+id/searchButton"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <EditText
-        android:id="@+id/searchBar"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="@string/searchBar"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="355dp"
         android:layout_height="346dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
@@ -205,4 +193,18 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/searchBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
