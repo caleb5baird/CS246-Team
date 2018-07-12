@@ -1,6 +1,7 @@
 package com.bicodetech.cineman;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import com.google.gson.Gson;
 
@@ -45,6 +46,7 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
             connection.setRequestProperty("Content-Type", "application/json");
 
             JSONData data = new JSONData();
+            Bundle parameters = activityRef.get().getParameters();
 
             String title = "Sahara";
             data.setQuery(title);

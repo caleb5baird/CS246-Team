@@ -22,6 +22,10 @@ public class SearchResults extends AppCompatActivity {
     private TextView textview;
     private Bundle parameters;
 
+    public Bundle getParameters() {
+        return parameters;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,7 @@ public class SearchResults extends AppCompatActivity {
         Gson gson = new Gson();
 
         CombinedResults combinedResults = gson.fromJson(jsonData, CombinedResults.class);
+        int x = 1;
     }
 
     public void enableProgressBar() {

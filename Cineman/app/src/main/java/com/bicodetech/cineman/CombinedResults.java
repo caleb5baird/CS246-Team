@@ -6,9 +6,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-@SerializedName("total_results")
 public class CombinedResults {
 
+    @SerializedName("items")
     private List<Result> results;
 
     public List<Result> getResults() { return results; }

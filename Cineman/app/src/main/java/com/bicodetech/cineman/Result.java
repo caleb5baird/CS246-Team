@@ -5,18 +5,24 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-@SerializedName("")
 public class Result {
 
     private String title;
+
     @SerializedName("poster")
     private String image;
+
     @SerializedName("short_description")
     private String summary;
+
     private int runtime;
+
     @SerializedName("age_certification")
     private String rating;
+
+    @SerializedName("offers")
     private List<Provider> providers;
+
     @SerializedName("original_release_year")
     private String date;
 
