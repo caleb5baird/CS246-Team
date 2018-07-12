@@ -1,76 +1,61 @@
 package com.bicodetech.cineman;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@SerializedName("")
 public class Result {
-    public Result(String title, String provider, String summary, String rating, String runtime, String genre, String date, String director, ArrayList<String> cast, float price, float popularRating) {
-        this.title = title;
-        this.provider = provider;
-        this.summary = summary;
-        this.rating = rating;
-        this.runtime = runtime;
-        this.genre = genre;
-        this.date = date;
-        this.director = director;
-        this.cast = cast;
-        this.price = price;
-        this.popularRating = popularRating;
-    }
 
     private String title;
-    private String provider;
+    @SerializedName("poster")
+    private String image;
+    @SerializedName("short_description")
     private String summary;
+    private int runtime;
+    @SerializedName("age_certification")
     private String rating;
-    private String runtime;
-    private String genre;
+    private List<Provider> providers;
+    @SerializedName("original_release_year")
     private String date;
-    private String director;
-    private ArrayList<String> cast;
-    private float price;
-    private float popularRating;
+
+
+    public Result(String title, String image, String summary, int runtime, String rating, List<Provider> providers, String date) {
+        this.title = title;
+        this.image = image;
+        this.summary = summary;
+        this.runtime = runtime;
+        this.rating = rating;
+        this.providers = providers;
+        this.date = date;
+    }
 
     public String getTitle() { return title; }
 
-    public String getRuntime() { return runtime; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getGenre() { return genre; }
+    public String getImage() { return image; }
 
-    public String getDate() { return date; }
-
-    public String getDirector() { return director; }
-
-    public ArrayList<String> getCast() { return cast; }
-
-    public float getPrice() { return price; }
-
-    public float getPopularRating() { return popularRating; }
-
-    public String getProvider() { return provider; }
+    public void setImage(String image) { this.image = image; }
 
     public String getSummary() { return summary; }
 
-    public String getRating() { return rating; }
-
-    public void setTitle(String title) { this.title = title; }
-
-    public void setRuntime(String runtime) { this.runtime = runtime; }
-
-    public void setGenre(String genre) { this.genre = genre; }
-
-    public void setDate(String date) { this.date = date; }
-
-    public void setDirector(String director) { this.director = director; }
-
-    public void setCast(ArrayList<String> cast) { this.cast = cast; }
-
-    public void setPrice(float price) { this.price = price; }
-
-    public void setPopularRating(float popularRating) { this.popularRating = popularRating; }
-
-    public void setProvider(String provider) { this.provider = provider; }
-
     public void setSummary(String summary) { this.summary = summary; }
+
+    public int getRuntime() { return runtime; }
+
+    public void setRuntime(int runtime) { this.runtime = runtime; }
+
+    public String getRating() { return rating; }
 
     public void setRating(String rating) { this.rating = rating; }
 
+    public List<Provider> getProviders() { return providers; }
+
+    public void setProviders(List<Provider> providers) { this.providers = providers; }
+
+    public String getDate() { return date; }
+
+    public void setDate(String date) { this.date = date; }
 }

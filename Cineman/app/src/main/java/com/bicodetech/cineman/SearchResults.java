@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class SearchResults extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView textview;
+    private Bundle parameters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class SearchResults extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        parameters = intent.getBundleExtra(MainActivity.EXTRA_MESSAGE);
 
         // make the json request
         setTitle("JSON Post");
@@ -62,7 +65,9 @@ public class SearchResults extends AppCompatActivity {
     }
 
     public void displayDump(String jsonData) {
-        textview.setText(jsonData);
+        Gson gson = new Gson();
+
+        CombinedResults combinedResults = gson.fromJson(jsonData, CombinedResults.class);
     }
 
     public void enableProgressBar() {

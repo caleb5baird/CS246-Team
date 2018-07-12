@@ -1,22 +1,20 @@
 package com.bicodetech.cineman;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
-public class CombinedResults extends Result {
-    public CombinedResults(String title, String provider, String summary, String rating, String title1, String runtime, String genre, String date, String director, ArrayList<String> cast, float price, float popularRating, ArrayList<String> providers) {
-        super(title, provider, summary, rating, runtime, genre, date, director, cast, price, popularRating);
-        this.providers = providers;
-    }
+@SerializedName("total_results")
+public class CombinedResults {
 
-    private ArrayList<String> providers;
+    private List<Result> results;
 
-    public void setProviders(ArrayList<String> providers) {
-        this.providers = providers;
-    }
+    public List<Result> getResults() { return results; }
 
-    public ArrayList<String> getProviders() {
+    public void setResults(List<Result> results) { this.results = results; }
 
-        return providers;
-    }
+    public CombinedResults(List<Result> results) { this.results = results; }
+
 }
