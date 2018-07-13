@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,9 +25,14 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText etSearchBar;
     private static String SP_SEARCH_BAR = "com.bicodetech.searchBar";
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "France"
+    private static final String[] Countries = new String[] {
+            "junk1", "junk2", "junk3", "junk4", "junk5", "junk6", "junk7", "junk8" , "junk9", "junk10", "junk11"
+            //"1", "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "eded" , "Toon Town", "PEOPLE", "Sam is sad"
     };
+
+    Queue<String> searchHistory = new LinkedList<>();
+
+
 
     /*@Override
     protected void onPause() {
@@ -48,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         etSearchBar = findViewById(R.id.searchBar);
-        readSharedPreferences();
+        readSharedPreferences();                               // It crashed here!!!
 
         //This is the code that handles showing out advanced search options.
         Switch ourSwitch = (Switch) findViewById(R.id.AdvancedSearch);
@@ -68,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+                android.R.layout.simple_dropdown_item_1line, Countries);
         AutoCompleteTextView textView = (AutoCompleteTextView)
                 findViewById(R.id.searchBar);
         textView.setAdapter(adapter);
@@ -102,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle b = new Bundle();
 
-        b.putString("title", searchBarEntry.toString());
+        b.putString("title", searchBarEntry.getText().toString());
         b.putBoolean("checkNetflix", checkNetflix.isChecked());
         b.putBoolean("checkAmazon", checkAmazon.isChecked());
         b.putBoolean("checkAction", checkAction.isChecked());
@@ -114,6 +123,15 @@ public class MainActivity extends AppCompatActivity {
         b.putBoolean("checkRent", checkRent.isChecked());
         b.putBoolean("checkStream", checkStream.isChecked());
 
+        //String name = b.getString("title");
+
+        updateHistoryStuff(b.getString("title"));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Countries);
+        AutoCompleteTextView textView = (AutoCompleteTextView)
+                findViewById(R.id.searchBar);
+        textView.setAdapter(adapter);
 
         Intent intent = new Intent(this, SearchResults.class);
         intent.putExtra(EXTRA_MESSAGE, b);
@@ -122,9 +140,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writeSharedPreferneces(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < Countries.length; i++) {
+            sb.append(Countries[i]).append(",");
+        }
+
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(SP_SEARCH_BAR, etSearchBar.getText().toString());
+        editor.putString(SP_SEARCH_BAR, sb.toString());
         editor.apply();
     }
 
@@ -138,7 +161,20 @@ public class MainActivity extends AppCompatActivity {
     private void readSharedPreferences() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String searchBar = sp.getString(SP_SEARCH_BAR, "");
-        etSearchBar.setText(searchBar);
+
+        String[] C = searchBar.split(",");
+
+
+        int x = Countries.length;
+        int num = 0;
+        for (int i = 0; i < C.length; i++) {
+            if ((i == 1) || (i == 2) || (i == 3))  //for some reason index 1 2 and 3 are junk. we just want to copy 0 and 4-12
+                i = 4;
+
+            Countries[num] = C[i];
+            num++;
+        }
+
         Toast.makeText(this, "Shared Preferences Loaded", Toast.LENGTH_SHORT).show();
     }
 
@@ -151,4 +187,16 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }*/
+
+    private void updateHistoryStuff(String searchBarEntry) {
+
+        int number = Integer.parseInt(Countries[0].toString()); //element 0 in our array is the number.
+        Countries[number] = searchBarEntry;
+        if(number >= 10)
+            number = 1;
+        else
+            number++;
+
+        Countries[0] = Integer.toString(number);
+    }
 }
