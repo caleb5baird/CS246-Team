@@ -48,10 +48,11 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
             JSONData data = new JSONData();
             Bundle parameters = activityRef.get().getParameters();
 
-            String title = "Sahara";
+
+            String title = parameters.getString("title");
             data.setQuery(title);
 
-            //add rateing
+            //add rating
             List<String> rating = new ArrayList<String>();
             rating.add("PG-13");
             data.setAge_certifications(rating);

@@ -2,6 +2,9 @@ package com.bicodetech.cineman;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +14,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -69,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
                     // The switch is enabled
                     findViewById(R.id.constraintLayout).setVisibility(View.VISIBLE); //this is to change our advanced search from visable to gone
+
                 } else {
                     // The switch is disabled
                     findViewById(R.id.constraintLayout).setVisibility(View.GONE); //this is to change our advanced search from gone to visable
+
                 }
             }
         });
@@ -104,8 +113,12 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkDocumentary = (CheckBox) findViewById(R.id.checkBox7);  //Documentuary
         CheckBox checkReligious = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
 
+        Spinner spin = (Spinner) findViewById(R.id.spinner);
+
         CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
         CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
+
+
 
 
 
@@ -135,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SearchResults.class);
         intent.putExtra(EXTRA_MESSAGE, b);
+
+        writeSharedPreferneces();
 
         startActivity(intent);
     }
