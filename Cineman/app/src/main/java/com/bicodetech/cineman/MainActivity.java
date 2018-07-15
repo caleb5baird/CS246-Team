@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkDocumentary = (CheckBox) findViewById(R.id.checkBox7);  //Documentuary
         CheckBox checkReligious = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
 
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
-
         CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
         CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
 
@@ -149,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         //String name = b.getString("title");
 
+        writeSharedPreferneces();
         updateHistoryStuff(b.getString("title"));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -160,14 +159,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchResults.class);
         intent.putExtra(EXTRA_MESSAGE, b);
 
-        writeSharedPreferneces();
 
         startActivity(intent);
     }
 
     private void writeSharedPreferneces(){
 
-        if (Countries[0] == "")
+        if (Countries[0] == null)
         {
             final String[] Countries = new String[] {
                     "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"

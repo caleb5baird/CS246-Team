@@ -13,19 +13,19 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickListener{
 
-    private ArrayList<Result> dataSet;
+    private ArrayList<Result> result;
     Context mContext;
 
     // View lookup cache
     private static class ViewHolder {
-        TextView txtName;
-        TextView txtType;
-        TextView txtVersion;
+        TextView title;
+        TextView rating;
+        TextView runtime;
     }
 
-    public CustomAdapter(ArrayList<Result> data, Context context) {
-        super(context, R.layout.result_row, data);
-        this.dataSet = data;
+    public CustomAdapter(ArrayList<Result> result, Context context) {
+        super(context, R.layout.result_row, result);
+        this.result = result;
         this.mContext=context;
 
     }
@@ -39,7 +39,7 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
 
 //        switch (v.getId())
 //        {
-//            case R.id.item_info:
+//            case R.id.result_row:
 //                Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
 //                        .setAction("No action", null).show();
 //                break;
@@ -50,7 +50,7 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
+        // Get the result item for this position
         Result dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
@@ -65,7 +65,7 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
 //            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
 //            viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
 //            viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
-//            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+//            viewHolder.info = (ImageView) convertView.findViewById(R.id.result_row);
 
             result=convertView;
 
