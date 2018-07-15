@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkComedy = (CheckBox) findViewById(R.id.checkBox11); //Comedy
         CheckBox checkMusical = (CheckBox) findViewById(R.id.checkBox8);  //Musical
         CheckBox checkDocumentary = (CheckBox) findViewById(R.id.checkBox7);  //Documentuary
-        CheckBox checkReligious = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
+        CheckBox checkWestern = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
 
         CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
         CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkRatingPG = (CheckBox) findViewById(R.id.checkBox6);
         CheckBox checkRatingPG13 = (CheckBox) findViewById(R.id.checkBox13);
         CheckBox checkRatingR = (CheckBox) findViewById(R.id.checkBox14);
-        CheckBox checkRatingUnrated = (CheckBox) findViewById(R.id.checkBox15);
 
 
 
@@ -136,14 +135,13 @@ public class MainActivity extends AppCompatActivity {
         b.putBoolean("checkComedy", checkComedy.isChecked());
         b.putBoolean("checkMusical", checkMusical.isChecked());
         b.putBoolean("checkDocumentary", checkDocumentary.isChecked());
-        b.putBoolean("checkReligious", checkReligious.isChecked());
+        b.putBoolean("checkWestern", checkWestern.isChecked());
         b.putBoolean("checkRent", checkRent.isChecked());
         b.putBoolean("checkStream", checkStream.isChecked());
         b.putBoolean("checkRatingG", checkRatingG.isChecked());
         b.putBoolean("checkRatingPG", checkRatingPG.isChecked());
         b.putBoolean("checkRatingPG13", checkRatingPG13.isChecked());
         b.putBoolean("checkRatingR", checkRatingR.isChecked());
-        b.putBoolean("checkRatingUnrated", checkRatingUnrated.isChecked());
 
         //String name = b.getString("title");
 
