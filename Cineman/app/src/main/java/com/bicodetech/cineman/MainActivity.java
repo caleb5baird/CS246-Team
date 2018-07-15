@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void writeSharedPreferneces(){
 
-        if (isNumeric(Countries[0].toString()))
+        if (!isNumeric(Countries[0].toString()))
         {
             final String[] Countries = new String[] {
                     "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"
