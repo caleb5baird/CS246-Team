@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etSearchBar;
     private static String SP_SEARCH_BAR = "com.bicodetech.searchBar";
     private static final String[] Countries = new String[] {
-            "junk1", "junk2", "junk3", "junk4", "junk5", "junk6", "junk7", "junk8" , "junk9", "junk10", "junk11"
+            "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"
             //"1", "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "eded" , "Toon Town", "PEOPLE", "Sam is sad"
     };
 
