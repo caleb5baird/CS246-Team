@@ -107,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
         CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
 
+        CheckBox checkRatingG = (CheckBox) findViewById(R.id.checkBox5);
+        CheckBox checkRatingPG = (CheckBox) findViewById(R.id.checkBox6);
+        CheckBox checkRatingPG13 = (CheckBox) findViewById(R.id.checkBox13);
+        CheckBox checkRatingR = (CheckBox) findViewById(R.id.checkBox14);
+        CheckBox checkRatingUnrated = (CheckBox) findViewById(R.id.checkBox15);
+
 
 
         Bundle b = new Bundle();
@@ -122,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
         b.putBoolean("checkReligious", checkReligious.isChecked());
         b.putBoolean("checkRent", checkRent.isChecked());
         b.putBoolean("checkStream", checkStream.isChecked());
+        b.putBoolean("checkRatingG", checkRatingG.isChecked());
+        b.putBoolean("checkRatingPG", checkRatingPG.isChecked());
+        b.putBoolean("checkRatingPG13", checkRatingPG13.isChecked());
+        b.putBoolean("checkRatingR", checkRatingR.isChecked());
+        b.putBoolean("checkRatingUnrated", checkRatingUnrated.isChecked());
 
         //String name = b.getString("title");
 
@@ -136,10 +147,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchResults.class);
         intent.putExtra(EXTRA_MESSAGE, b);
 
+        writeSharedPreferneces();
+
         startActivity(intent);
     }
 
     private void writeSharedPreferneces(){
+
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Countries.length; i++) {
             sb.append(Countries[i]).append(",");
