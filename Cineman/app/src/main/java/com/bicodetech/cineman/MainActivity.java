@@ -165,23 +165,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void writeSharedPreferneces(){
 
-        if (Countries[0] == null)
+        if (isNumeric(Countries[0].toString()))
         {
             final String[] Countries = new String[] {
                     "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"
                     //"1", "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "eded" , "Toon Town", "PEOPLE", "Sam is sad"
             };
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Countries.length; i++) {
+                sb.append(Countries[i]).append(",");
+            }
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(SP_SEARCH_BAR, sb.toString());
+            editor.apply();
+        }
+        else {
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Countries.length; i++) {
+                sb.append(Countries[i]).append(",");
+            }
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(SP_SEARCH_BAR, sb.toString());
+            editor.apply();
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < Countries.length; i++) {
-            sb.append(Countries[i]).append(",");
-        }
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(SP_SEARCH_BAR, sb.toString());
-        editor.apply();
     }
 
     /*private void writeSharedPreferneces(){
@@ -231,5 +245,18 @@ public class MainActivity extends AppCompatActivity {
             number++;
 
         Countries[0] = Integer.toString(number);
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 }
