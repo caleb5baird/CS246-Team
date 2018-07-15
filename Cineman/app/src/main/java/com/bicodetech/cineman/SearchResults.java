@@ -31,7 +31,7 @@ public class SearchResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        // Get the Intent that started this activity and extract the string
+        // Get the Intent that started this activity and extract the bundle
         Intent intent = getIntent();
         parameters = intent.getBundleExtra(MainActivity.EXTRA_MESSAGE);
 
