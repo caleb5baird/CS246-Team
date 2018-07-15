@@ -155,6 +155,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writeSharedPreferneces(){
+
+        if (Countries[0] == "")
+        {
+            final String[] Countries = new String[] {
+                    "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"
+                    //"1", "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "eded" , "Toon Town", "PEOPLE", "Sam is sad"
+            };
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Countries.length; i++) {
             sb.append(Countries[i]).append(",");
