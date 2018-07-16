@@ -50,66 +50,56 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
 
 
             String title = parameters.getString("title");
-            data.setQuery(title);
+            if (title.length() > 0)
+                data.setQuery(title);
 
             //add rating
             List<String> rating = new ArrayList<String>();
             if (parameters.getBoolean("checkRatingG"))
-            {
-                rating.add(parameters.getString("G"));
-            }
-            else if (parameters.getBoolean("checkRatingPG"))
-            {
-                rating.add(parameters.getString("PG"));
-            }
-            else if (parameters.getBoolean("checkRatingPG13"))
-            {
-                rating.add(parameters.getString("PG-13"));
-            }
-            else if (parameters.getBoolean("checkRatingR"))
-            {
-                rating.add(parameters.getString("R"));
-            }
-            data.setAge_certifications(rating);
-
-            //add content type (movie vs tv)
-//            List<String> contactType = new ArrayList<String>();
-//            contactType.add("movie");
-//            data.setContent_types(contactType);
+                rating.add("G");
+            if (parameters.getBoolean("checkRatingPG"))
+                rating.add("PG");
+            if (parameters.getBoolean("checkRatingPG13"))
+                rating.add("PG-13");
+            if (rating.size() > 0)
+                data.setAge_certifications(rating);
 
             // add provider
-//            List<String> providers = new ArrayList<String>();
-//            providers.add("amp");
-//            data.setProviders(providers);
+            List<String> providers = new ArrayList<String>();
+            if (parameters.getBoolean("checkAmazon"))
+                providers.add("amp");
+            if (parameters.getBoolean("checkNetflix"))
+                providers.add("nfx");
+            if (providers.size() > 0)
+                data.setProviders(providers);
 
             //add genres
             List<String> genres = new ArrayList<String>();
             if (parameters.getBoolean("checkAction"))
                 genres.add("act");
-            else if (parameters.getBoolean("checkRomance"))
+            if (parameters.getBoolean("checkRomance"))
                 genres.add("rma");
-            else if (parameters.getBoolean("checkComedy"))
+            if (parameters.getBoolean("checkComedy"))
                 genres.add("cmy");
-            else if (parameters.getBoolean("checkMusical"))
+            if (parameters.getBoolean("checkMusical"))
                 genres.add("msc");
-            else if (parameters.getBoolean("checkDocumentary"))
+            if (parameters.getBoolean("checkDocumentary"))
                 genres.add("doc");
-            else if (parameters.getBoolean("checkWestern"))
+            if (parameters.getBoolean("checkWestern"))
                 genres.add("wsn");
-
-            data.setGenres(genres);
+            if (genres.size() > 0)
+                data.setGenres(genres);
 
             // stream/rent
             List<String> monitizationTypes = new ArrayList<String>();
             if (parameters.getBoolean("checkStream"))
                 genres.add("flatrate");
-            else if (parameters.getBoolean("checkRent"))
+            if (parameters.getBoolean("checkRent"))
                 genres.add("rent");
 //            else if (parameters.getBoolean("checkBuy"))
 //                genres.add("buy");
-
-
-            data.setMonetization_types(monitizationTypes);
+            if (monitizationTypes.size() > 0)
+                data.setMonetization_types(monitizationTypes);
 
             Gson gson = new Gson();
             String body = gson.toJson(data);

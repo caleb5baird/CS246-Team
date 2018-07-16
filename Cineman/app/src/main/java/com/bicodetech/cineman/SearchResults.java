@@ -8,19 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResults extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private TextView textview;
+    private ListView listView;
     private Bundle parameters;
+    private static CustomAdapter adapter;
 
     public Bundle getParameters() {
         return parameters;
@@ -38,33 +41,12 @@ public class SearchResults extends AppCompatActivity {
         // make the json request
         setTitle("JSON Post");
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        textview = findViewById(R.id.searchResults);
-        textview.setMovementMethod(new ScrollingMovementMethod());
+        listView = findViewById(R.id.searchResults);
+//        listView.setMovementMethod(new ScrollingMovementMethod());
 
-        //TODO: figure out what this progress bar is for.
         disableProgressBar();
 
         new JSONPostLoader(this).execute();
-
-//        ArrayList cast = new ArrayList<String>();
-//        cast.add("Caleb Baird");
-//        cast.add("Sam Gay");
-//        cast.add("Sam Haymond");
-//        cast.add("Chase Haymond");
-//        Result r1 = new Result("Home Alone", "Netflix", "Boy is left at home", "PG", "120", "Horror", "1990", "Christopher Columbus", cast, 0, 0);
-//        Result r2 = new Result("Home Alone", "Amazon Prime", "Boy is left at home", "PG", "120", "Horror", "1990", "Christopher Columbus", cast, 0, 0);
-//        Result r3 = new Result("Home Alone", "Hulu", "Boy is left at home", "PG", "120", "Horror", "1990", "Christopher Columbus", cast, 0, 0);
-//        Result r4 = new Result("Star Wars", "Netflix", "Jedi's rule the galaxy", "PG", "120", "Sci-Fi", "1990", "George Lucas", cast, 15, 100);
-//        Result r5 = new Result("Star Wars", "Amazon Prime", "Jedi's rule the galaxy", "PG", "120", "Sci-Fi", "1990", "George Lucas", cast, 15, 100);
-//        Result r6 = new Result("Star Wars", "Hulu", "Jedi's rule the galaxy", "PG", "120", "Sci-Fi", "1990", "George Lucas", cast, 15, 100);
-//        ArrayList results = new ArrayList<Result>;
-//        results.add(r1);
-//        results.add(r2);
-//        results.add(r3);
-//        results.add(r4);
-//        results.add(r5);
-//        results.add(r6);
-//        List<CombinedResults> combinedResults = combineResults(results);
 
     }
 
@@ -72,7 +54,10 @@ public class SearchResults extends AppCompatActivity {
         Gson gson = new Gson();
 
         CombinedResults combinedResults = gson.fromJson(jsonData, CombinedResults.class);
-        int x = 1;
+//        listView.setText(jsonData);
+        ArrayList<Result> results = combinedResults.getResults();
+        adapter = new CustomAdapter(results, getApplicationContext());
+        listView.setAdapter(adapter);
     }
 
     public void enableProgressBar() {

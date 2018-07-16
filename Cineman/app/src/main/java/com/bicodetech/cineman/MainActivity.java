@@ -2,9 +2,6 @@ package com.bicodetech.cineman;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,16 +11,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,23 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
         EditText searchBarEntry = (EditText) findViewById(R.id.searchBar);
 
-        CheckBox checkNetflix = (CheckBox) findViewById(R.id.checkBox3); //Netflix
-        CheckBox checkAmazon = (CheckBox) findViewById(R.id.checkBox4); //Amazon
+        CheckBox checkNetflix = (CheckBox) findViewById(R.id.netflix); //Netflix
+        CheckBox checkAmazon = (CheckBox) findViewById(R.id.amazon); //Amazon
 
-        CheckBox checkAction = (CheckBox) findViewById(R.id.checkBox10); //action
-        CheckBox checkRomance = (CheckBox) findViewById(R.id.checkBox12); //Romance
-        CheckBox checkComedy = (CheckBox) findViewById(R.id.checkBox11); //Comedy
-        CheckBox checkMusical = (CheckBox) findViewById(R.id.checkBox8);  //Musical
-        CheckBox checkDocumentary = (CheckBox) findViewById(R.id.checkBox7);  //Documentuary
-        CheckBox checkWestern = (CheckBox) findViewById(R.id.checkBox9);  //Religionus
+        CheckBox checkAction = (CheckBox) findViewById(R.id.action); //action
+        CheckBox checkRomance = (CheckBox) findViewById(R.id.romance); //Romance
+        CheckBox checkComedy = (CheckBox) findViewById(R.id.comedy); //Comedy
+        CheckBox checkMusical = (CheckBox) findViewById(R.id.musical);  //Musical
+        CheckBox checkDocumentary = (CheckBox) findViewById(R.id.documnetary);  //Documentuary
+        CheckBox checkWestern = (CheckBox) findViewById(R.id.western);  //Religionus
 
-        CheckBox checkRent = (CheckBox) findViewById(R.id.checkBox);  //rent
-        CheckBox checkStream = (CheckBox) findViewById(R.id.checkBox2); //stream
+        CheckBox checkRent = (CheckBox) findViewById(R.id.rent);  //rent
+        CheckBox checkBuy = (CheckBox) findViewById(R.id.buy);  //rent
+        CheckBox checkStream = (CheckBox) findViewById(R.id.stream); //stream
 
-        CheckBox checkRatingG = (CheckBox) findViewById(R.id.checkBox5);
-        CheckBox checkRatingPG = (CheckBox) findViewById(R.id.checkBox6);
-        CheckBox checkRatingPG13 = (CheckBox) findViewById(R.id.checkBox13);
-        CheckBox checkRatingR = (CheckBox) findViewById(R.id.checkBox14);
+        CheckBox checkRatingG = (CheckBox) findViewById(R.id.g);
+        CheckBox checkRatingPG = (CheckBox) findViewById(R.id.pg);
+        CheckBox checkRatingPG13 = (CheckBox) findViewById(R.id.pg13);
 
 
 
@@ -128,22 +120,24 @@ public class MainActivity extends AppCompatActivity {
         Bundle b = new Bundle();
 
         b.putString("title", searchBarEntry.getText().toString());
+
         b.putBoolean("checkNetflix", checkNetflix.isChecked());
         b.putBoolean("checkAmazon", checkAmazon.isChecked());
+
         b.putBoolean("checkAction", checkAction.isChecked());
         b.putBoolean("checkRomance", checkRomance.isChecked());
         b.putBoolean("checkComedy", checkComedy.isChecked());
         b.putBoolean("checkMusical", checkMusical.isChecked());
         b.putBoolean("checkDocumentary", checkDocumentary.isChecked());
         b.putBoolean("checkWestern", checkWestern.isChecked());
+
         b.putBoolean("checkRent", checkRent.isChecked());
+        b.putBoolean("checkBuy", checkBuy.isChecked());
         b.putBoolean("checkStream", checkStream.isChecked());
+
         b.putBoolean("checkRatingG", checkRatingG.isChecked());
         b.putBoolean("checkRatingPG", checkRatingPG.isChecked());
         b.putBoolean("checkRatingPG13", checkRatingPG13.isChecked());
-        b.putBoolean("checkRatingR", checkRatingR.isChecked());
-
-        //String name = b.getString("title");
 
         writeSharedPreferneces();
         updateHistoryStuff(b.getString("title"));
@@ -196,13 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*private void writeSharedPreferneces(){
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putStringSet("searchHistory", searchHistory);
-        editor.apply();
-    }*/
-
     private void readSharedPreferences() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String searchBar = sp.getString(SP_SEARCH_BAR, "");
@@ -222,16 +209,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Shared Preferences Loaded", Toast.LENGTH_SHORT).show();
     }
-
-    /*private void readSharedPreferences() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        searchHistory = sp.getStringSet("searchHistory", null);
-        Intent intent = new Intent(this, SearchResults.class);
-        EditText editText = (EditText) findViewById(R.id.searchBar);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }*/
 
     private void updateHistoryStuff(String searchBarEntry) {
 

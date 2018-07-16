@@ -9,12 +9,12 @@ import java.util.List;
 public class CombinedResults {
 
     @SerializedName("items")
-    private List<Result> results;
+    private ArrayList<Result> results;
 
-    public List<Result> getResults() { return results; }
+    public ArrayList<Result> getResults() { return results; }
 
-    public void setResults(List<Result> results) { this.results = results; }
+    public void setResults(ArrayList<Result> results) { this.results = results; }
 
-    public CombinedResults(List<Result> results) { this.results = results; }
+    public CombinedResults(ArrayList<Result> results) { this.results = results; }
 
 }
