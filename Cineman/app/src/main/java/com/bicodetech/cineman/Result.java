@@ -21,13 +21,13 @@ public class Result {
     private String rating;
 
     @SerializedName("offers")
-    private List<Provider> providers;
+    private ArrayList<Provider> providers;
 
     @SerializedName("original_release_year")
     private String date;
 
 
-    public Result(String title, String image, String summary, int runtime, String rating, List<Provider> providers, String date) {
+    public Result(String title, String image, String summary, int runtime, String rating, ArrayList<Provider> providers, String date) {
         this.title = title;
         this.image = image;
         this.summary = summary;
@@ -57,9 +57,9 @@ public class Result {
 
     public void setRating(String rating) { this.rating = rating; }
 
-    public List<Provider> getProviders() { return providers; }
+    public ArrayList<Provider> getProviders() { return providers; }
 
-    public void setProviders(List<Provider> providers) { this.providers = providers; }
+    public void setProviders(ArrayList<Provider> providers) { this.providers = providers; }
 
     public String getDate() { return date; }
 

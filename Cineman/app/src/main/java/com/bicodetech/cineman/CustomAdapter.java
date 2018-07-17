@@ -2,6 +2,8 @@ package com.bicodetech.cineman;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,9 @@ import android.widget.TextView;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickListener{
+public class CustomAdapter extends ArrayAdapter<Result> {
 
     private ArrayList<Result> result;
     Context mContext;
@@ -28,6 +31,13 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
         TextView runtime;
         TextView summary;
         ImageView poster;
+        ImageView sp1;
+        ImageView sp2;
+        ImageView sp3;
+        ImageView sp4;
+        ImageView rp1;
+        ImageView rp2;
+        ImageView rp3;
     }
 
     public CustomAdapter(ArrayList<Result> result, Context context) {
@@ -36,23 +46,6 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
         this.mContext=context;
 
     }
-
-    @Override
-    public void onClick(View v) {
-
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        Result result=(Result)object;
-
-//        switch (v.getId())
-//        {
-//            case R.id.result_row:
-//                Snackbar.make(v, "Release date " +result.getFeature(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
-//                break;
-//        }
-    }
-
     private int lastPosition = -1;
 
     @Override
@@ -73,6 +66,13 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
             viewHolder.runtime = (TextView) convertView.findViewById(R.id.Runtime);
             viewHolder.summary = (TextView) convertView.findViewById(R.id.Summary);
             viewHolder.poster = (ImageView) convertView.findViewById(R.id.Poster);
+            viewHolder.sp1 = (ImageView) convertView.findViewById(R.id.streamProvider1);
+            viewHolder.sp2 = (ImageView) convertView.findViewById(R.id.streamProvider2);
+            viewHolder.sp3 = (ImageView) convertView.findViewById(R.id.streamProvider3);
+            viewHolder.sp4 = (ImageView) convertView.findViewById(R.id.streamProvider4);
+            viewHolder.rp1 = (ImageView) convertView.findViewById(R.id.rentProvider1);
+            viewHolder.rp2 = (ImageView) convertView.findViewById(R.id.rentProvider2);
+            viewHolder.rp3 = (ImageView) convertView.findViewById(R.id.rentProvider3);
 
             resultV=convertView;
 
@@ -91,46 +91,118 @@ public class CustomAdapter extends ArrayAdapter<Result> implements View.OnClickL
         int minuets = result.getRuntime()%60;
         String runtime = hours + "hr " + minuets + "min";
 
+        String imgURL = result.getImage();
+        imgURL = imgURL.substring(0, imgURL.length() - 9);
+        imgURL = "https://images.justwatch.com" + imgURL + "s592";
+
         //get unique stream providers
-        //get the id for the Sahara poster
+        HashMap<String, Boolean> isDisplayed = new HashMap<String, Boolean>();
+        isDisplayed.put("apple", false);
+        isDisplayed.put("google", false);
+        isDisplayed.put("vudu", false);
+        isDisplayed.put("amazonPrime", false);
+        isDisplayed.put("amazon", false);
+        isDisplayed.put("hulu", false);
+        isDisplayed.put("youtube", false);
+        isDisplayed.put("netflix", false);
+        int streamId = 1;
+        int rentId = 1;
+
 
         viewHolder.title.setText(result.getTitle());
         viewHolder.rating.setText(result.getRating());
         viewHolder.runtime.setText(runtime);
         viewHolder.summary.setText(result.getSummary());
-        viewHolder.poster.setImageDrawable(mContext.getResources().getDrawable(R.drawable.sahara));
-//        viewHolder.info.setOnClickListener(this);
-//        viewHolder.info.setTag(position);
+        new DownloadImageTask(viewHolder.poster).execute(imgURL);
+        for (Provider provider : result.getProviders()) {
+            Drawable icon = getProviderImage(provider.getProviderId(), isDisplayed);
+            if (icon != null){
+                if (provider.getMonotizationType().equals("flatrate")) {
+                    switch (streamId++) {
+                        case 1:
+                            viewHolder.sp1.setImageDrawable(icon);
+                            break;
+                        case 2:
+                            viewHolder.sp2.setImageDrawable(icon);
+                            break;
+                        case 3:
+                            viewHolder.sp3.setImageDrawable(icon);
+                            break;
+                        case 4:
+                            viewHolder.sp4.setImageDrawable(icon);
+                            break;
+                    }
+                } else {
+                    switch (rentId++) {
+                        case 1:
+                            viewHolder.rp1.setImageDrawable(icon);
+                            break;
+                        case 2:
+                            viewHolder.rp2.setImageDrawable(icon);
+                            break;
+                        case 3:
+                            viewHolder.rp3.setImageDrawable(icon);
+                            break;
+                    }
+                }
+            }
+        }
+
         // Return the completed view to render on screen
         return convertView;
     }
 
-    private Drawable getProviderImage(int providerId) {
-        Drawable result;
+    private Drawable getProviderImage(int providerId, HashMap<String, Boolean> isDisplayed) {
+        Drawable result = null;
         switch (providerId){
             case 2:
-                result = mContext.getResources().getDrawable(R.drawable.apple_itunes);
+                if (!isDisplayed.get("apple")) {
+                    result = mContext.getResources().getDrawable(R.drawable.apple_itunes);
+                    isDisplayed.put("apple", true);
+                }
                 break;
             case 3:
-                result = mContext.getResources().getDrawable(R.drawable.google_play_movies);
+                if (!isDisplayed.get("google")){
+                    result = mContext.getResources().getDrawable(R.drawable.google_play_movies);
+                    isDisplayed.put("google", true);
+                }
                 break;
-            case 7:
-                result = mContext.getResources().getDrawable(R.drawable.vudu);
+//            case 7:
+//                if (!isDisplayed.get("vudo")){
+//                    result = mContext.getResources().getDrawable(R.drawable.vudu);
+//                    isDisplayed.put("vudo", true);
+//                }
+//                break;
+            case 8:
+                if (!isDisplayed.get("netflix")){
+                    result = mContext.getResources().getDrawable(R.drawable.netflix);
+                    isDisplayed.put("netflix", true);
+                }
                 break;
             case 9:
-                result = mContext.getResources().getDrawable(R.drawable.amazon_prime_video);
+                if (!isDisplayed.get("amazonPrime")){
+                    result = mContext.getResources().getDrawable(R.drawable.amazon_prime_video);
+                    isDisplayed.put("amazonPrime", true);
+                }
                 break;
             case 10:
-                result = mContext.getResources().getDrawable(R.drawable.amazon_video);
+                if (!isDisplayed.get("amazon")){
+                    result = mContext.getResources().getDrawable(R.drawable.amazon_video);
+                    isDisplayed.put("amazon", true);
+                }
                 break;
             case 15:
-                result = mContext.getResources().getDrawable(R.drawable.hulu);
+                if (!isDisplayed.get("hulu")){
+                    result = mContext.getResources().getDrawable(R.drawable.hulu);
+                    isDisplayed.put("hulu", true);
+                }
                 break;
             case 192:
-                result = mContext.getResources().getDrawable(R.drawable.youtube_premium);
+                if (!isDisplayed.get("youtube")){
+                    result = mContext.getResources().getDrawable(R.drawable.youtube_premium);
+                    isDisplayed.put("youtube", true);
+                }
                 break;
-            default:
-                result = null;
         }
         return result;
     }
