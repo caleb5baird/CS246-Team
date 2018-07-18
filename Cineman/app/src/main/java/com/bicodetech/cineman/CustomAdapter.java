@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class CustomAdapter extends ArrayAdapter<Result> {
 
-    private ArrayList<Result> result;
+    private ArrayList<Result> results;
     Context mContext;
 
     // View lookup cache
@@ -40,9 +40,9 @@ public class CustomAdapter extends ArrayAdapter<Result> {
         ImageView rp3;
     }
 
-    public CustomAdapter(ArrayList<Result> result, Context context) {
-        super(context, R.layout.result_row, result);
-        this.result = result;
+    public CustomAdapter(ArrayList<Result> results, Context context) {
+        super(context, R.layout.result_row, results);
+        this.results = results;
         this.mContext=context;
 
     }
@@ -82,70 +82,83 @@ public class CustomAdapter extends ArrayAdapter<Result> {
             resultV=convertView;
         }
 
-//        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-//        result.startAnimation(animation);
-//        lastPosition = position;
+        // Set Title
+        if (result.getTitle() != null) {
+            viewHolder.title.setText(result.getTitle());
+        }
 
-        // Get the runtime string
+        // Set Rating
+        if (result.getRating() != null) {
+            viewHolder.rating.setText(result.getRating());
+        }
+
+        // Set RunTime
         int hours = result.getRuntime()/60;
         int minuets = result.getRuntime()%60;
         String runtime = hours + "hr " + minuets + "min";
-
-        String imgURL = result.getImage();
-        imgURL = imgURL.substring(0, imgURL.length() - 9);
-        imgURL = "https://images.justwatch.com" + imgURL + "s592";
-
-        //get unique stream providers
-        HashMap<String, Boolean> isDisplayed = new HashMap<String, Boolean>();
-        isDisplayed.put("apple", false);
-        isDisplayed.put("google", false);
-        isDisplayed.put("vudu", false);
-        isDisplayed.put("amazonPrime", false);
-        isDisplayed.put("amazon", false);
-        isDisplayed.put("hulu", false);
-        isDisplayed.put("youtube", false);
-        isDisplayed.put("netflix", false);
-        int streamId = 1;
-        int rentId = 1;
-
-
-        viewHolder.title.setText(result.getTitle());
-        viewHolder.rating.setText(result.getRating());
         viewHolder.runtime.setText(runtime);
-        viewHolder.summary.setText(result.getSummary());
-        new DownloadImageTask(viewHolder.poster).execute(imgURL);
-        for (Provider provider : result.getProviders()) {
-            Drawable icon = getProviderImage(provider.getProviderId(), isDisplayed);
-            if (icon != null){
-                if (provider.getMonotizationType().equals("flatrate")) {
-                    switch (streamId++) {
-                        case 1:
-                            viewHolder.sp1.setImageDrawable(icon);
-                            break;
-                        case 2:
-                            viewHolder.sp2.setImageDrawable(icon);
-                            break;
-                        case 3:
-                            viewHolder.sp3.setImageDrawable(icon);
-                            break;
-                        case 4:
-                            viewHolder.sp4.setImageDrawable(icon);
-                            break;
-                    }
-                } else {
-                    switch (rentId++) {
-                        case 1:
-                            viewHolder.rp1.setImageDrawable(icon);
-                            break;
-                        case 2:
-                            viewHolder.rp2.setImageDrawable(icon);
-                            break;
-                        case 3:
-                            viewHolder.rp3.setImageDrawable(icon);
-                            break;
+
+        // Set Poster Image
+        if (result.getImage() != null){
+            String imgURL = result.getImage();
+            imgURL = imgURL.substring(0, imgURL.length() - 9);
+            imgURL = "https://images.justwatch.com" + imgURL + "s592";
+            new DownloadImageTask(viewHolder.poster).execute(imgURL);
+        }
+
+        // Set Provider Icons
+        if (result.getProviders() != null) {
+            //get unique stream providers
+            HashMap<String, Boolean> isDisplayed = new HashMap<String, Boolean>();
+            isDisplayed.put("apple", false);
+            isDisplayed.put("google", false);
+            isDisplayed.put("vudu", false);
+            isDisplayed.put("amazonPrime", false);
+            isDisplayed.put("amazon", false);
+            isDisplayed.put("hulu", false);
+            isDisplayed.put("youtube", false);
+            isDisplayed.put("netflix", false);
+            int streamId = 1;
+            int rentId = 1;
+
+            for (Provider provider : result.getProviders()) {
+                Drawable icon = getProviderImage(provider.getProviderId(), isDisplayed);
+                if (icon != null){
+                    if (provider.getMonotizationType().equals("flatrate")) {
+                        switch (streamId++) {
+                            case 1:
+                                viewHolder.sp1.setImageDrawable(icon);
+                                break;
+                            case 2:
+                                viewHolder.sp2.setImageDrawable(icon);
+                                break;
+                            case 3:
+                                viewHolder.sp3.setImageDrawable(icon);
+                                break;
+                            case 4:
+                                viewHolder.sp4.setImageDrawable(icon);
+                                break;
+                        }
+                    } else {
+                        switch (rentId++) {
+                            case 1:
+                                viewHolder.rp1.setImageDrawable(icon);
+                                break;
+                            case 2:
+                                viewHolder.rp2.setImageDrawable(icon);
+                                break;
+                            case 3:
+                                viewHolder.rp3.setImageDrawable(icon);
+                                break;
+                        }
                     }
                 }
             }
+        }
+
+        // Set Summary
+        if (result.getSummary() != null) {
+            viewHolder.summary.setText(result.getSummary());
         }
 
         // Return the completed view to render on screen
@@ -167,12 +180,12 @@ public class CustomAdapter extends ArrayAdapter<Result> {
                     isDisplayed.put("google", true);
                 }
                 break;
-//            case 7:
-//                if (!isDisplayed.get("vudo")){
-//                    result = mContext.getResources().getDrawable(R.drawable.vudu);
-//                    isDisplayed.put("vudo", true);
-//                }
-//                break;
+            case 7:
+                if (!isDisplayed.get("vudu")){
+                    result = mContext.getResources().getDrawable(R.drawable.vudu);
+                    isDisplayed.put("vudu", true);
+                }
+                break;
             case 8:
                 if (!isDisplayed.get("netflix")){
                     result = mContext.getResources().getDrawable(R.drawable.netflix);
