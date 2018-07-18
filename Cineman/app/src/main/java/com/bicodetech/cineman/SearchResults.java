@@ -35,7 +35,7 @@ public class SearchResults extends AppCompatActivity {
         setContentView(R.layout.activity_search_results);
 
         // Get the Intent that started this activity and extract the bundle
-        Intent intent = getIntent();
+       Intent intent = getIntent();
         parameters = intent.getBundleExtra(MainActivity.EXTRA_MESSAGE);
 
         // make the json request
