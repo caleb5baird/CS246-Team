@@ -1,3 +1,13 @@
+/**
+ * Prepares request to JustWatch API, requests data per search, receives data and parses to
+ * individual variables, then returns variables.
+ *
+ * @author Caleb Baird
+ */
+
+
+
+
 package com.bicodetech.cineman;
 
 import android.os.AsyncTask;
@@ -22,10 +32,18 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
 
     private WeakReference<SearchResults> activityRef;
 
+    /**
+     * Constructs JSONPostLoader using search's current activity
+     *
+     * @param activity activity from search
+     */
     public JSONPostLoader(SearchResults activity) {
         activityRef = new WeakReference<SearchResults>(activity);
     }
 
+    /**
+     * onPreExecute overrides super class to enable progress bar
+     */
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -34,6 +52,15 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
         }
     }
 
+    /**
+     * Requests data from JustWatch API which returns JSON string. JSON string is parsed into
+     * variables and returns all lines of data.
+     *
+     * @param dummy no true variable
+     * @return allLines all lines from JSON string
+     * @throws MalformedURLException Throws MalformedURLException for incorrect URL exception
+     * @throws IOException throws IOException for input or output exception
+     */
     protected String doInBackground(Void... dummy) {
         try {
             // Create a stream to the URL
@@ -129,6 +156,11 @@ public class JSONPostLoader extends AsyncTask<Void, Void, String> {
         }
     }
 
+    /**
+     * Returns result data if no previous search results were populated.
+     *
+     * @param result
+     */
     protected void onPostExecute(String result) {
         if (activityRef.get() != null && result != null) {
             activityRef.get().displayDump(result);
