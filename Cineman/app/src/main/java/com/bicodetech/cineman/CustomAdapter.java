@@ -1,3 +1,11 @@
+/**
+ * Prepares data of available providers and movie info
+ * to present in view for user.
+ *
+ * @author Caleb Baird
+ */
+
+
 package com.bicodetech.cineman;
 
 import android.content.Context;
@@ -24,7 +32,9 @@ public class CustomAdapter extends ArrayAdapter<Result> {
     private ArrayList<Result> results;
     Context mContext;
 
-    // View lookup cache
+    /**
+     * Lookup cache for ViewHolder.
+     */
     private static class ViewHolder {
         TextView title;
         TextView rating;
@@ -40,14 +50,28 @@ public class CustomAdapter extends ArrayAdapter<Result> {
         ImageView rp3;
     }
 
+    /**
+     * Inputs data into variables.
+     *
+     * @param results results to be formatted.
+     * @param context contect of results.
+     */
     public CustomAdapter(ArrayList<Result> results, Context context) {
         super(context, R.layout.result_row, results);
         this.results = results;
-        this.mContext=context;
+        this.mContext = context;
 
     }
     private int lastPosition = -1;
 
+    /**
+     * Prepares, verifies, and sets view, including filtered provider data.
+     *
+     * @param position location of view
+     * @param convertView updated view location
+     * @param parent original view data
+     * @return convertView Updated view locations
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
