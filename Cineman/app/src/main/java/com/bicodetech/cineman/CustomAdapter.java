@@ -1,5 +1,6 @@
 /**
- * Prepares data to present in view for user.
+ * Prepares data of available providers and movie info
+ * to present in view for user.
  *
  * @author Caleb Baird
  */
@@ -64,12 +65,12 @@ public class CustomAdapter extends ArrayAdapter<Result> {
     private int lastPosition = -1;
 
     /**
-     * 
+     * Prepares, verifies, and sets view, including filtered provider data.
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return convertView
+     * @param position location of view
+     * @param convertView updated view location
+     * @param parent original view data
+     * @return convertView Updated view locations
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
