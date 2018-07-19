@@ -1,3 +1,8 @@
+/**
+ * searchResults is a class that takes the search results from the main activity
+ * and displays info to the user.
+ */
+
 package com.bicodetech.cineman;
 
 import android.content.Intent;
@@ -11,15 +16,12 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResults extends AppCompatActivity {
-
     private ProgressBar progressBar;
     private ListView listView;
     private Bundle parameters;
@@ -29,6 +31,10 @@ public class SearchResults extends AppCompatActivity {
         return parameters;
     }
 
+    /**
+     * onCreate gets everything ready to be displayed.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +48,6 @@ public class SearchResults extends AppCompatActivity {
         setTitle("JSON Post");
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         listView = findViewById(R.id.searchResults);
-//        listView.setMovementMethod(new ScrollingMovementMethod());
 
         disableProgressBar();
 
@@ -50,6 +55,10 @@ public class SearchResults extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets up the adapter and passes it to a listView
+     * @param jsonData collection of JSON data.
+     */
     public void displayDump(String jsonData) {
         Gson gson = new Gson();
 
@@ -60,23 +69,17 @@ public class SearchResults extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * enableProgressBar starts the progress bar.
+     */
     public void enableProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * disablesProgressBar stops the progress bar.
+     */
     public void disableProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
-    }
-
-    private ArrayList<CombinedResults> combineResults(ArrayList<Result> results) {
-        ArrayList combinedResults = new ArrayList<CombinedResults>();
-        for (int i = 0; i < results.size(); ++i) {
-            boolean foundMatch = false;
-            for (int j = i + 1; j < results.size(); ++j) {
-//               if (results[i].getProvider() == results[j].getProviderjk
-//               }
-            }
-        }
-        return combinedResults;
     }
 }

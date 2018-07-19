@@ -1,3 +1,7 @@
+/**
+ * The class MainActivity is where the app starts. It creates an activity that will
+ * take user input and then send that to the next activity for results to be displayed.
+ */
 package com.bicodetech.cineman;
 
 import android.content.Intent;
@@ -19,39 +23,29 @@ import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*private Set<String> searchHistory;
-    private EditText etSearchBar;*/
-
     private EditText etSearchBar;
     private static String SP_SEARCH_BAR = "com.bicodetech.searchBar";
     private static final String[] Countries = new String[] {
             "1", "a", "b", "c", "d", "e", "f", "g" , "h", "i", "j"
-            //"1", "Belgium", "France", "Italy", "Germany", "Spain", "Frammel", "eded" , "Toon Town", "PEOPLE", "Sam is sad"
     };
 
     Queue<String> searchHistory = new LinkedList<>();
 
 
-
-    /*@Override
-    protected void onPause() {
-        super.onPause();
-        writeSharedPreferneces();
-    }*/
-
+    /**
+     * onPause is called whenever the user closes the app or changes to another app.
+     */
     @Override
     protected void onPause() {
         super.onPause();
         writeSharedPreferneces();
     }
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        readSharedPreferences();
-    }*/
-
+    /**
+     * onCreate sets up everything the app needs to run. It gets the shared prefrences and add an
+     * onUpdate functionality to our switch.
+     * @param savedInstanceState the past saved search history. You get this from shared preferences.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,7 +83,13 @@ public class MainActivity extends AppCompatActivity {
     //I got this from the My First App androi tutorial
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
-    /** Called when the user taps the Send button */
+    /**
+     * sendMessage gets called when the button on mainActivity gets clicked. It gathers
+     * all the info that the user inputed and bundles it. Then it send that bundle to a
+     * new activity.
+     * @param view this is the view of the activity it was called from. It needs this so that
+     *             it can reference all the check boxes and buttons.
+     */
     public void sendMessage(View view) {
         // Do something in response to button
 
@@ -155,8 +155,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * writeSharedPreferneces takes the global variable Countries and saves it to shared preferences.
+     */
     private void writeSharedPreferneces(){
 
+        //If you havent searched before than you need to fill in Countries or it will seg fault.
         if (!isNumeric(Countries[0].toString()))
         {
             final String[] Countries = new String[] {
@@ -190,6 +194,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * readSharedPreferences it reads what was in the shared preferences.
+     */
     private void readSharedPreferences() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String searchBar = sp.getString(SP_SEARCH_BAR, "");
@@ -210,6 +217,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Shared Preferences Loaded", Toast.LENGTH_SHORT).show();
     }
 
+
+    /**
+     * updateHistoryStuff updates the global variable Countries.
+     * @param searchBarEntry the string to be inserted into the bundle.
+     */
     private void updateHistoryStuff(String searchBarEntry) {
 
         int number = Integer.parseInt(Countries[0].toString()); //element 0 in our array is the number.
@@ -222,6 +234,11 @@ public class MainActivity extends AppCompatActivity {
         Countries[0] = Integer.toString(number);
     }
 
+    /**
+     * isNumeric is used to check if a string is a number or not.
+     * @param str the string to be checked.
+     * @return true if the string is a number.
+     */
     public static boolean isNumeric(String str)
     {
         try
